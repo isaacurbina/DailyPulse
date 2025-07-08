@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+	kotlin("plugin.serialization") version "1.9.20"
+	alias(libs.plugins.sqlDelight)
+	alias(libs.plugins.composeMultiplatformPlugin)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -14,7 +17,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -28,7 +31,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+				implementation(compose.runtime)
+				implementation(compose.foundation)
+				implementation(compose.components.resources)
+				implementation(compose.material3)
+				implementation(libs.compose.material)
             }
         }
         val commonTest by getting {
