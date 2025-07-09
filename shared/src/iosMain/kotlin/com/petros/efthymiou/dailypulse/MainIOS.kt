@@ -5,5 +5,5 @@ import com.petros.efthymiou.dailypulse.ui.App
 
 
 fun MainViewController() = ComposeUIViewController {
-    App()
+	App()
 }
