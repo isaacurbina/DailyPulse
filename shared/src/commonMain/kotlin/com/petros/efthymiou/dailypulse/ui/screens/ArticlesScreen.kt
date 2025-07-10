@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
@@ -46,110 +45,110 @@ import org.koin.compose.koinInject
 
 class ArticlesScreen : Screen {
 
-    @Composable
-    override fun Content() {
-        ArticlesScreenContent()
-    }
+	@Composable
+	override fun Content() {
+		ArticlesScreenContent()
+	}
 }
 
 @Composable
 fun ArticlesScreenContent(
-    articlesViewModel: ArticlesViewModel = koinInject(),
+	articlesViewModel: ArticlesViewModel = koinInject(),
 ) {
-    val articlesState = articlesViewModel.articlesState.collectAsState()
+	val articlesState = articlesViewModel.articlesState.collectAsState()
 
-    Column {
-        AppBar()
+	Column {
+		AppBar()
 
-        if (articlesState.value.error != null)
-            ErrorMessage(articlesState.value.error!!)
-        if (articlesState.value.articles.isNotEmpty())
-            ArticlesListView(articlesViewModel)
-    }
+		if (articlesState.value.error != null)
+			ErrorMessage(articlesState.value.error!!)
+		if (articlesState.value.articles.isNotEmpty())
+			ArticlesListView(articlesViewModel)
+	}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar() {
-    val navigator = LocalNavigator.currentOrThrow
+	val navigator = LocalNavigator.currentOrThrow
 
-    TopAppBar(
-        title = { Text(text = "Articles") },
-        actions = {
-            IconButton(onClick = {
-                navigator.push(SourcesScreen())
-            }) {
-                Icon(
-                    imageVector = Icons.Outlined.List,
-                    contentDescription = "Sources Button",
-                )
-            }
-            IconButton(onClick = {
-                navigator.push(AboutScreen())
-            }) {
-                Icon(
-                    imageVector = Icons.Outlined.Info,
-                    contentDescription = "About Device Button",
-                )
-            }
-        }
-    )
+	TopAppBar(
+		title = { Text(text = "Articles") },
+		actions = {
+			IconButton(onClick = {
+				navigator.push(SourcesScreen())
+			}) {
+				Icon(
+					imageVector = Icons.Outlined.List,
+					contentDescription = "Sources Button",
+				)
+			}
+			IconButton(onClick = {
+				navigator.push(AboutScreen())
+			}) {
+				Icon(
+					imageVector = Icons.Outlined.Info,
+					contentDescription = "About Device Button",
+				)
+			}
+		}
+	)
 }
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun ArticlesListView(viewModel: ArticlesViewModel) {
 
-    val state = rememberPullRefreshState(
-        refreshing = viewModel.articlesState.value.loading,
-        onRefresh = { viewModel.getArticles(true) }
-    )
+	val state = rememberPullRefreshState(
+		refreshing = viewModel.articlesState.value.loading,
+		onRefresh = { viewModel.getArticles(true) }
+	)
 
-    Box(
-        modifier = Modifier.pullRefresh(state = state)
-    ) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(viewModel.articlesState.value.articles) { article ->
-                ArticleItemView(article = article)
-            }
-        }
-        PullRefreshIndicator(
-            refreshing = viewModel.articlesState.value.loading,
-            state = state,
-            modifier = Modifier.align(Alignment.TopCenter)
-        )
-    }
+	Box(
+		modifier = Modifier.pullRefresh(state = state)
+	) {
+		LazyColumn(modifier = Modifier.fillMaxSize()) {
+			items(viewModel.articlesState.value.articles) { article ->
+				ArticleItemView(article = article)
+			}
+		}
+		PullRefreshIndicator(
+			refreshing = viewModel.articlesState.value.loading,
+			state = state,
+			modifier = Modifier.align(Alignment.TopCenter)
+		)
+	}
 }
 
 @Composable
 fun ArticleItemView(article: Article) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        KamelImage(
-            resource = asyncPainterResource(data = Url(article.imageUrl)),
-            contentDescription = "article image",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.height(200.dp)
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = article.title,
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = article.desc)
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = article.date,
-            style = TextStyle(color = Color.Gray),
-            modifier = Modifier.align(Alignment.End)
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-    }
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.padding(16.dp)
+	) {
+		KamelImage(
+			resource = asyncPainterResource(data = Url(article.imageUrl)),
+			contentDescription = "article image",
+			contentScale = ContentScale.Crop,
+			modifier = Modifier.height(200.dp)
+		)
+		Spacer(modifier = Modifier.height(4.dp))
+		Text(
+			text = article.title,
+			style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
+		)
+		Spacer(modifier = Modifier.height(8.dp))
+		Text(text = article.desc)
+		Spacer(modifier = Modifier.height(4.dp))
+		Text(
+			text = article.date,
+			style = TextStyle(color = Color.Gray),
+			modifier = Modifier.align(Alignment.End)
+		)
+		Spacer(modifier = Modifier.height(4.dp))
+	}
 }
 
 
