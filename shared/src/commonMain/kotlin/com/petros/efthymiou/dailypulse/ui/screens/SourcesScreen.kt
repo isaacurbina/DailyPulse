@@ -33,83 +33,84 @@ import com.petros.efthymiou.dailypulse.sources.presentation.SourcesViewModel
 import com.petros.efthymiou.dailypulse.ui.screens.elements.ErrorMessage
 import org.koin.compose.koinInject
 
-class SourcesScreen: Screen {
+class SourcesScreen : Screen {
 
-    @Composable
-    override fun Content() {
-        SourcesScreenContent()
-    }
+	@Composable
+	override fun Content() {
+		SourcesScreenContent()
+	}
 }
 
 @Composable
 fun SourcesScreenContent(
-    viewModel: SourcesViewModel = koinInject()) {
-    val sourcesState = viewModel.sourcesState.collectAsState()
+	viewModel: SourcesViewModel = koinInject()
+) {
+	val sourcesState = viewModel.sourcesState.collectAsState()
 
-    Column {
-        AppBar()
+	Column {
+		AppBar()
 
-        if (sourcesState.value.error != null)
-            ErrorMessage(sourcesState.value.error!!)
+		if (sourcesState.value.error != null)
+			ErrorMessage(sourcesState.value.error!!)
 
-        SourcesListView(viewModel)
-    }
+		SourcesListView(viewModel)
+	}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar() {
-    val navigator = LocalNavigator.currentOrThrow
+	val navigator = LocalNavigator.currentOrThrow
 
-    TopAppBar(
-        title = { Text(text = "Sources") },
-        navigationIcon = {
-            IconButton(onClick = {
-                navigator.pop()
-            }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Up Button",
-                )
-            }
-        }
-    )
+	TopAppBar(
+		title = { Text(text = "Sources") },
+		navigationIcon = {
+			IconButton(onClick = {
+				navigator.pop()
+			}) {
+				Icon(
+					imageVector = Icons.Default.ArrowBack,
+					contentDescription = "Up Button",
+				)
+			}
+		}
+	)
 }
 
 @Composable
 fun SourcesListView(viewModel: SourcesViewModel) {
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(viewModel.sourcesState.value.sources) { source ->
-            SourceItemView(source = source)
-        }
-    }
+	LazyColumn(modifier = Modifier.fillMaxSize()) {
+		items(viewModel.sourcesState.value.sources) { source ->
+			SourceItemView(source = source)
+		}
+	}
 
 }
 
 @Composable
 fun SourceItemView(source: Source) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = source.name,
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = source.desc)
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = source.origin,
-            style = TextStyle(color = Color.Gray),
-            modifier = Modifier.align(Alignment.End)
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-    }
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.padding(16.dp)
+	) {
+		Spacer(modifier = Modifier.height(4.dp))
+		Text(
+			text = source.name,
+			style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp)
+		)
+		Spacer(modifier = Modifier.height(8.dp))
+		Text(text = source.desc)
+		Spacer(modifier = Modifier.height(4.dp))
+		Text(
+			text = source.origin,
+			style = TextStyle(color = Color.Gray),
+			modifier = Modifier.align(Alignment.End)
+		)
+		Spacer(modifier = Modifier.height(4.dp))
+	}
 }
 
 
