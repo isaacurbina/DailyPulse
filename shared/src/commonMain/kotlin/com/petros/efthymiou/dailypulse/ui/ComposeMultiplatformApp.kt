@@ -6,14 +6,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.petros.efthymiou.dailypulse.ui.screens.AboutScreen
+import com.petros.efthymiou.dailypulse.ui.screens.SourcesScreen
 
 @Composable
 fun App() {
     MaterialTheme {
         Scaffold {
             Box(modifier = Modifier.fillMaxSize()) {
-                AboutScreen()
+                SourcesScreen()
             }
         }
     }
