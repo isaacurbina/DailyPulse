@@ -22,7 +22,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.petros.efthymiou.dailypulse.Platform
 
-class AboutScreen() : Screen {
+class AboutScreen : Screen {
 
 	@Composable
 	override fun Content() {

@@ -1,9 +1,9 @@
 package com.petros.efthymiou.dailypulse
 
 import androidx.compose.ui.window.ComposeUIViewController
-import com.petros.efthymiou.dailypulse.ui.screens.ArticlesScreen
+import com.petros.efthymiou.dailypulse.ui.App
 
 
 fun MainViewController() = ComposeUIViewController {
-	ArticlesScreen()
+	App()
 }
