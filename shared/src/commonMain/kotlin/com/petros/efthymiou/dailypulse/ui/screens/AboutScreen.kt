@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Divider
@@ -25,79 +24,79 @@ import com.petros.efthymiou.dailypulse.Platform
 
 class AboutScreen() : Screen {
 
-    @Composable
-    override fun Content() {
-        AboutScreenContent()
-    }
+	@Composable
+	override fun Content() {
+		AboutScreenContent()
+	}
 }
 
 @Composable
 fun AboutScreenContent() {
-    Column {
-        Toolbar()
-        ContentView()
-    }
+	Column {
+		Toolbar()
+		ContentView()
+	}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Toolbar() {
-    val navigator = LocalNavigator.currentOrThrow
+	val navigator = LocalNavigator.currentOrThrow
 
-    TopAppBar(
-        title = { Text(text = "About Device") },
-        navigationIcon = {
-            IconButton(onClick = {
-                navigator.pop()
-            }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Up Button",
-                )
-            }
-        }
-    )
+	TopAppBar(
+		title = { Text(text = "About Device") },
+		navigationIcon = {
+			IconButton(onClick = {
+				navigator.pop()
+			}) {
+				Icon(
+					imageVector = Icons.Default.ArrowBack,
+					contentDescription = "Up Button",
+				)
+			}
+		}
+	)
 }
 
 @Composable
 private fun ContentView() {
-    val items = makeItems()
+	val items = makeItems()
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        items(items) { row ->
-            RowView(title = row.first, subtitle = row.second)
-        }
-    }
+	LazyColumn(
+		modifier = Modifier.fillMaxSize(),
+	) {
+		items(items) { row ->
+			RowView(title = row.first, subtitle = row.second)
+		}
+	}
 }
 
 private fun makeItems(): List<Pair<String, String>> {
-    val platform = Platform()
-    platform.logSystemInfo()
+	val platform = Platform()
+	platform.logSystemInfo()
 
-    return listOf(
-        Pair("Operating System", "${platform.osName} ${platform.osVersion}"),
-        Pair("Device", platform.deviceModel),
-        Pair("Density", platform.density.toString())
-    )
+	return listOf(
+		Pair("Operating System", "${platform.osName} ${platform.osVersion}"),
+		Pair("Device", platform.deviceModel),
+		Pair("Density", platform.density.toString())
+	)
 }
 
 @Composable
 private fun RowView(
-    title: String,
-    subtitle: String,
+	title: String,
+	subtitle: String,
 ) {
-    Column(Modifier.padding(8.dp)) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodySmall,
-            color = Color.Gray,
-        )
-        Text(
-            text = subtitle,
-            style = MaterialTheme.typography.bodyLarge,
-        )
-    }
-    Divider()
+	Column(Modifier.padding(8.dp)) {
+		Text(
+			text = title,
+			style = MaterialTheme.typography.bodySmall,
+			color = Color.Gray,
+		)
+		Text(
+			text = subtitle,
+			style = MaterialTheme.typography.bodyLarge,
+		)
+	}
+	Divider()
 }

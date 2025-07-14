@@ -53,7 +53,7 @@ class ArticlesScreen : Screen {
 
 @Composable
 fun ArticlesScreenContent(
-	articlesViewModel: ArticlesViewModel = koinInject(),
+	articlesViewModel: ArticlesViewModel = koinInject()
 ) {
 	val articlesState = articlesViewModel.articlesState.collectAsState()
 
