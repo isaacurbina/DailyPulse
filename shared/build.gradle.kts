@@ -28,6 +28,8 @@ kotlin {
         }
     }
 
+	jvm("desktop")
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -65,6 +67,13 @@ kotlin {
                 implementation(libs.sql.native.driver)
             }
         }
+
+		val desktopMain by getting {
+			dependencies {
+				implementation(libs.ktor.client.cio)
+				implementation(libs.sql.desktop.driver)
+			}
+		}
 
         val commonTest by getting {
             dependencies {
