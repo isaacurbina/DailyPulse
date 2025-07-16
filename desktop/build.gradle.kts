@@ -18,3 +18,28 @@ kotlin {
 		}
 	}
 }
+
+compose.desktop {
+	application {
+		mainClass = "MainKt"
+
+		nativeDistributions {
+			targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+
+			packageName = "com.petros.efthymiou.dailypulse"
+			packageVersion = "1.0.0"
+
+			macOs {
+				bundleID = "com.petros.efthymiou.dailypulse"
+			}
+
+			windows {
+
+			}
+
+			linux {
+
+			}
+		}
+	}
+}
