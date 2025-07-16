@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 plugins {
 	alias(libs.plugins.kotlinMultiplatform)
 	alias(libs.plugins.composeMultiplatformPlugin)
@@ -29,7 +31,7 @@ compose.desktop {
 			packageName = "com.petros.efthymiou.dailypulse"
 			packageVersion = "1.0.0"
 
-			macOs {
+			macOS {
 				bundleID = "com.petros.efthymiou.dailypulse"
 			}
 
