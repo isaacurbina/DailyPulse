@@ -30,6 +30,11 @@ kotlin {
 
 	jvm("desktop")
 
+	js(IR) {
+		binaries.executable()
+		browser()
+	}
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -72,6 +77,12 @@ kotlin {
 			dependencies {
 				implementation(libs.ktor.client.cio)
 				implementation(libs.sql.desktop.driver)
+			}
+		}
+
+		val jsMain by getting {
+			dependencies {
+				implementation(libs.ktor.client.js)
 			}
 		}
 
