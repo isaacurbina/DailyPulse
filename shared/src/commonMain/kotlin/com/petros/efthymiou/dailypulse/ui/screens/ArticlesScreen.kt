@@ -41,19 +41,20 @@ import com.petros.efthymiou.dailypulse.ui.screens.elements.ErrorMessage
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import io.ktor.http.Url
-import org.koin.compose.koinInject
+import org.koin.core.Koin
 
-class ArticlesScreen : Screen {
+class ArticlesScreen(val koin: Koin) : Screen {
 
 	@Composable
 	override fun Content() {
-		ArticlesScreenContent()
+		ArticlesScreenContent(koin)
 	}
 }
 
 @Composable
 fun ArticlesScreenContent(
-	articlesViewModel: ArticlesViewModel = koinInject()
+	koin: Koin,
+	articlesViewModel: ArticlesViewModel = koin.get()
 ) {
 	val articlesState = articlesViewModel.articlesState.collectAsState()
 

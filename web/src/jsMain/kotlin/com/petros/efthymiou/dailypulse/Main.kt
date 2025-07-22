@@ -16,7 +16,7 @@ fun main() {
 		Surface(
 			modifier = Modifier.fillMaxSize()
 		) {
-			App()
+			App(koin)
 		}
 	}
 }
