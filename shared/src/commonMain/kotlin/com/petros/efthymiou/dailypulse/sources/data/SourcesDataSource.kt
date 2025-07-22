@@ -2,13 +2,14 @@ package com.petros.efthymiou.dailypulse.sources.data
 
 import petros.efthymiou.dailypulse.db.DailyPulseDatabase
 
-class SourcesDataSource(private val db: DailyPulseDatabase) {
+class SourcesDataSource(private val db: DailyPulseDatabase?) {
 
     fun getAllSources(): List<SourceRaw> =
-        db.dailyPulseDatabaseQueries.selectAllSources(::mapSource).executeAsList()
+        db?.dailyPulseDatabaseQueries?.selectAllSources(::mapSource)?.executeAsList()
+			?: emptyList()
 
     fun clearSources() =
-        db.dailyPulseDatabaseQueries.removeAllSources()
+        db?.dailyPulseDatabaseQueries?.removeAllSources()
 
     private fun mapSource(
         id: String,
@@ -18,16 +19,16 @@ class SourcesDataSource(private val db: DailyPulseDatabase) {
         country: String
     ): SourceRaw {
         return SourceRaw(
-            id,
-            name,
-            desc,
-            language,
-            country
+			id = id,
+			name = name,
+			desc = desc,
+			language = language,
+			country = country
         )
     }
 
     internal fun createSources(sources: List<SourceRaw>) {
-        db.dailyPulseDatabaseQueries.transaction {
+        db?.dailyPulseDatabaseQueries?.transaction {
             sources.forEach { source ->
                 insertSource(source)
             }
@@ -35,12 +36,12 @@ class SourcesDataSource(private val db: DailyPulseDatabase) {
     }
 
     private fun insertSource(source: SourceRaw) {
-        db.dailyPulseDatabaseQueries.insertSource(
-            source.id,
-            source.name,
-            source.desc,
-            source.language,
-            source.country,
+        db?.dailyPulseDatabaseQueries?.insertSource(
+			id = source.id,
+			name = source.name,
+			desc = source.desc,
+			language = source.language,
+			country = source.country,
         )
     }
 }
