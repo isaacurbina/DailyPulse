@@ -2,7 +2,7 @@ package com.petros.efthymiou.dailypulse.articles.data
 
 import petros.efthymiou.dailypulse.db.DailyPulseDatabase
 
-class ArticlesDataSource(private val database: DailyPulseDatabase) {
+class ArticlesDataSource(private val database: DailyPulseDatabase?) {
 
     fun getAllArticles(): List<ArticleRaw> =
         database.dailyPulseDatabaseQueries.selectAllArticles(::mapToArticleRaw).executeAsList()
