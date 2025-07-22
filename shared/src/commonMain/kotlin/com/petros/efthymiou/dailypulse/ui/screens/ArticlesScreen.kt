@@ -59,7 +59,7 @@ fun ArticlesScreenContent(
 	val articlesState = articlesViewModel.articlesState.collectAsState()
 
 	Column {
-		AppBar()
+		AppBar(koin)
 
 		if (articlesState.value.error != null) ErrorMessage(articlesState.value.error!!)
 		if (articlesState.value.articles.isNotEmpty()) ArticlesListView(articlesViewModel)
@@ -68,12 +68,12 @@ fun ArticlesScreenContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AppBar() {
+private fun AppBar(koin: Koin) {
 	val navigator = LocalNavigator.currentOrThrow
 
 	TopAppBar(title = { Text(text = "Articles") }, actions = {
 		IconButton(onClick = {
-			navigator.push(SourcesScreen())
+			navigator.push(SourcesScreen(koin))
 		}) {
 			Icon(
 				imageVector = Icons.Outlined.List,
