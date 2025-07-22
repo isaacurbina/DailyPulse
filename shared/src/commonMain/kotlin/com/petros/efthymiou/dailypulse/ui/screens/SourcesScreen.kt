@@ -30,19 +30,20 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.petros.efthymiou.dailypulse.sources.application.Source
 import com.petros.efthymiou.dailypulse.sources.presentation.SourcesViewModel
 import com.petros.efthymiou.dailypulse.ui.screens.elements.ErrorMessage
-import org.koin.compose.koinInject
+import org.koin.core.Koin
 
-class SourcesScreen : Screen {
+class SourcesScreen(val koin: Koin) : Screen {
 
 	@Composable
 	override fun Content() {
-		SourcesScreenContent()
+		SourcesScreenContent(koin)
 	}
 }
 
 @Composable
 fun SourcesScreenContent(
-	viewModel: SourcesViewModel = koinInject()
+	koin: Koin,
+	viewModel: SourcesViewModel = koin.get()
 ) {
 	val sourcesState = viewModel.sourcesState.collectAsState()
 
